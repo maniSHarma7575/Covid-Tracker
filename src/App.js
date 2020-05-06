@@ -6,7 +6,13 @@ import styles from './App.module.css'
 import {fetchData} from './api'
 class App extends React.Component{
     state={
-        data:{}
+        data:{},
+        country:''
+    }
+    handleCountryChange=async(country)=>{
+        const fetchRecord=await fetchData(country)
+        this.setState({data:fetchRecord,country:country})
+        console.log(country)
     }
     async componentDidMount()
     {
@@ -21,7 +27,7 @@ class App extends React.Component{
         return(
             <div className={styles.container}>
                 <Cards data={data}/>
-                <CountryPicker />
+                <CountryPicker handleCountryChange={this.handleCountryChange} />
                 <Charts />
                 
             </div>
